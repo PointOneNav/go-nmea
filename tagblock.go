@@ -28,7 +28,7 @@ func parseInt64(raw string) (int64, error) {
 // parseTagBlock adds support for tagblocks
 // https://gpsd.gitlab.io/gpsd/AIVDM.html#_nmea_tag_blocks
 func parseTagBlock(tags string) (TagBlock, error) {
-	sumSepIndex := strings.Index(tags, ChecksumSep)
+	sumSepIndex := strings.LastIndex(tags, ChecksumSep)
 	if sumSepIndex == -1 {
 		return TagBlock{}, fmt.Errorf("nmea: tagblock does not contain checksum separator")
 	}
@@ -37,7 +37,7 @@ func parseTagBlock(tags string) (TagBlock, error) {
 		fieldsRaw   = tags[0:sumSepIndex]
 		checksumRaw = strings.ToUpper(tags[sumSepIndex+1:])
 		checksum    = Checksum(fieldsRaw)
-		tagBlock	TagBlock
+		tagBlock    TagBlock
 		err         error
 	)
 

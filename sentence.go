@@ -96,7 +96,7 @@ func parseSentence(raw string) (BaseSentence, error) {
 	if startIndex != 0 {
 		return BaseSentence{}, fmt.Errorf("nmea: sentence does not start with a '$' or '!'")
 	}
-	sumSepIndex := strings.Index(raw, ChecksumSep)
+	sumSepIndex := strings.LastIndex(raw, ChecksumSep)
 	if sumSepIndex == -1 {
 		return BaseSentence{}, fmt.Errorf("nmea: sentence does not contain checksum separator")
 	}
